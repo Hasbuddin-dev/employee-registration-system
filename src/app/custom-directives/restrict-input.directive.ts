@@ -16,7 +16,7 @@ export class RestrictInputDirective {
         return /^[0-9]+$/;
 
       case 'alphabet':
-        return /^[a-zA-Z]+$/;
+        return /^[a-zA-Z\s]+$/;
 
       default:
         return /^[a-zA-Z0-9]+$/;
