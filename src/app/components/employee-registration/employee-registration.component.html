@@ -1,0 +1,203 @@
+<div class="page-container  flex-centre flex-row align-center">
+    <!-- Form -->
+    <div class="form-container flex-column ">
+        <div class="align-center flex-column gap-10 header ">
+            <div class="title">{{title | titlecase}}</div>
+            <div class="sub-title">{{subTitle }}</div>
+        </div>
+
+        <!-- form fields -->
+        <form  autocomplete="off" [formGroup]="registrationForm" class="flex-column gap-20">
+            <div class="form-layout">
+
+                <!-- Full Name -->
+                <div class="form-field flex-column gap-5">
+                    <label for="fullName">Full Name <span class="required">*</span></label>
+                    <div class="input-wrapper flex-row align-center " 
+                    [class.invalid-field]="fullNameControl?.invalid && fullNameControl?.touched">
+                        <span class="material-symbols-outlined"> person </span>
+                        <input  id="fullName" formControlName="fullName" placeholder="Enter your full name" 
+                        (keydown)="preventLeadingSpace($event)"
+                        (blur)="trimControlValue('fullName')"
+                        appRestrictInput="alphabet">
+                    </div>
+                    <span class="error-msg required">
+                        {{
+                            fullNameControl?.touched && fullNameControl?.hasError('required') 
+                            ? 'Full name is required.'
+                            : fullNameControl?.touched && fullNameControl?.hasError('minlength') 
+                            ? 'Max 3 character is required.' 
+                            : ''
+                        }}
+
+                    </span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-field flex-column gap-5 ">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <div class="input-wrapper flex-row align-center " [class.invalid-field]="emailControl?.invalid && emailControl?.touched">
+
+                        <span class="material-symbols-outlined"> mail </span>
+                        <input id="email" formControlName="email" placeholder="Enter your email"
+                        (keydown)="preventLeadingSpace($event)"
+                        (blur)="trimControlValue('email')">
+                    </div>
+                    <span class="error-msg required">
+                        {{
+                            emailControl?.touched && emailControl?.hasError('required') 
+                            ? 'Email is required.'
+                            : emailControl?.touched && emailControl?.hasError('email') 
+                            ? 'Please enter a valid email address.' 
+                            : emailControl?.touched && emailControl?.hasError('emailExist')
+                            ? 'Email already exist'
+                            : ''
+                        }}
+                    </span>
+                </div>
+
+                <!-- Mobile Number -->
+                <div class="form-field flex-column gap-5">
+                    <label for="mobileNumber">Mobile Number <span class="required">*</span></label>
+                    <div class="input-wrapper flex-row align-center " [class.invalid-field]="mobControl?.invalid && mobControl?.touched">
+
+                        <span class="material-symbols-outlined"> call </span>
+                        <input id="mobileNumber" maxlength="10" formControlName="mob" placeholder="Enter 10-digit mobile number"
+                        (keydown)="preventLeadingSpace($event)"
+                        (blur)="trimControlValue('mob')"
+                        appRestrictInput="number">
+                    </div>
+                    <span class="required error-msg">
+                        {{
+                            mobControl?.touched && mobControl?.hasError('required') 
+                                ? 'Mobile number is required.'
+                                : mobControl?.touched && mobControl?.hasError('pattern') 
+                                ? 'Please enter a valid 10-digit mobile number.' 
+                                : ''
+                        }}
+                    </span>
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="form-field flex-column gap-5">
+                    <label for="dateOfBirth">Date of Birth <span class="required">*</span></label>
+                    <div class="input-wrapper flex-row align-center" [class.invalid-field]="dobControl?.invalid && dobControl?.touched">
+
+                        <span class="material-symbols-outlined"> calendar_today </span>
+                        <input id="dateOfBirth" type="date" formControlName="dob" placeholder="dd-mm-yyyy" [max]="todayDate"
+                        (keydown)="preventLeadingSpace($event)"
+                        (blur)="trimControlValue('dob')">
+                        <span
+                            class="material-symbols-outlined"
+                            (click)="clearDob()"
+                            *ngIf="dobControl?.value"
+                            >
+                            close
+                        </span>
+                    </div>
+                    <span class="required error-msg">
+                        {{
+                            dobControl?.touched && dobControl?.hasError('required') 
+                            ? 'Date of birth is required.'
+                            : dobControl?.touched && dobControl?.hasError('underAge') 
+                            ? ' You must be at least 18 years old.' 
+                            : ''
+                        }}
+                    </span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-field flex-column gap-5">
+                    <label for="password">Password <span class="required">*</span></label>
+                    <div class="input-wrapper flex-row align-center " [class.invalid-field]="passwordControl?.invalid && passwordControl?.touched">
+                        <span class="material-symbols-outlined"> lock </span>
+                        <input  id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter your password"
+                        (keydown)="preventLeadingSpace($event)"
+                        (blur)="trimControlValue('password')">
+                        <span class="material-symbols-outlined cursor-pointer" (click)="showPasswordToggle()">{{ showPassword ? 'visibility' : 'visibility_off' }} </span>
+                    </div>
+                    <span class="required error-msg" >
+                        {{
+                            passwordControl?.touched && passwordControl?.hasError('required') 
+                            ? 'Password is required.'
+                            : passwordControl?.touched && passwordControl?.hasError('pattern') 
+                            ? 'Password must be 8 characters long and contain at least one uppercase, one lowercase, one number, and one special character.' 
+                            : ''
+                        }}       
+                    </span>
+                </div>
+
+                <!--confirm Password -->
+                <div class="form-field flex-column gap-5">
+                    <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                    <div class="input-wrapper flex-row align-center " [class.invalid-field]="confirmPasswordControl?.invalid && confirmPasswordControl?.touched">
+                        <span class="material-symbols-outlined"> lock </span>
+                        <input  id="confirmPassword" [type]="showConfirmPassword ? 'text' : 'password'"  formControlName="confirmPassword" placeholder="Confirm your password"
+                        (keydown)="preventLeadingSpace($event)"
+                        (blur)="trimControlValue('confirmPassword')">
+                        <span class="material-symbols-outlined cursor-pointer" (click)="showConfirmPasswordToggle()">{{ showConfirmPassword ? 'visibility' : 'visibility_off' }} </span>
+                    </div>
+                    <span class="required error-msg">
+                        {{
+                            confirmPasswordControl?.touched && confirmPasswordControl?.hasError('required') 
+                            ? 'Confirm Password is required.'
+                            : confirmPasswordControl?.touched  && registrationForm.hasError('passwordMismatch') 
+                            ? ' Password do not match.'
+                            : ''
+                        }}
+                    
+                    </span>
+                </div>
+
+                <!-- Current city -->
+                <div class="form-field flex-column gap-5">
+                    <label for="city">Current City</label>
+                    <div class="input-wrapper flex-row align-center ">
+                        <span class="material-symbols-outlined"> location_on </span>
+                        <input  id="city" formControlName="city" placeholder="Enter your current city"
+                        (keydown)="preventLeadingSpace($event)"
+                        (blur)="trimControlValue('city')">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Button -->
+            <div class="action flex-centre flex-row gap-20"> 
+                <!--reset  -->
+                <button class="reset-btn"  (click)="onReset()" [disabled]="!registrationForm.dirty  || isSaving">
+                    <div class="align-center flex-centre flex-row gap-5">
+                        <span>Reset</span>
+                        <span class="material-symbols-outlined">restart_alt</span>
+                    </div>
+                </button>
+
+                <!-- Submit -->
+                <button class="submit-btn" (click)="onSubmit()" [disabled]="registrationForm.invalid || isSaving">
+                    <div class="align-center flex-centre flex-row gap-5">
+                        <span>Submit</span>
+                        <span class="material-symbols-outlined " *ngIf="!isSaving">send</span>
+                        <span class="material-symbols-outlined animation-loader" *ngIf="isSaving">
+                            autorenew
+                        </span>
+                    </div>    
+                </button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+
+<!-- snackbar -->
+<div
+  class="custom-snackbar"
+  [class.show]="showSnackbar"
+  >
+  <span class="material-symbols-outlined">
+    check_circle
+  </span>
+
+  {{ snackbarMessage }}
+</div>

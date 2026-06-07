@@ -1,1 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;  // setting 10px = 1rem for better consistency
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+}
+
+// define variables to use throughout the application
+:root {
+    /* Primary Brand Colors */
+    --primary: #6366F1;         // Indigo
+    --primary-light: #8B5CF6;   // Purple
+    --primary-dark: #4338CA;    // Dark Indigo
+    --primary-light-10: #bebfee;
+
+
+    --grey-border: #7c8084;
+    --grey-border-30: #505356;
+    --grey-background: #EAECF0;
+    --disable: #787d82;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-centre {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.gap-5 {
+    gap: 0.5rem;
+}
+
+.gap-10 {
+    gap: 1rem;
+}
+
+.gap-15{
+    gap: 1.5rem;
+}
+
+.gap-20{
+    gap: 2rem;
+}
+
+.required {
+    color: red;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.custom-snackbar {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1.4rem 2rem;
+
+  background: #22c55e;
+  color: white;
+  font-size: 1.8rem;
+
+  border-radius: 1.2rem;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+
+  z-index: 9999;
+}
+
+.custom-snackbar.show {
+  opacity: 1;
+  transform: translateX(0);
+}

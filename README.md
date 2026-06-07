@@ -1,27 +1,75 @@
-# EmployeeRegistrationSystem
+# Employee Registration Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+## Overview
 
-## Development server
+A responsive Employee Registration application built using Angular with Reactive Forms, custom validators, reusable directives, and local storage persistence.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+* Employee registration form with proper error message for all possible condition or state
+* Responsive UI design
+* Password visibility toggle
+* Confirm password validation
+* Cross-field validation
+* Age validation (18+)
+* Future date restriction 
+* Email uniqueness validation
+* Local storage persistence
+* Custom snackbar notifications
+* Loading state during submission of form
+* Form reset functionality 
+* Input restriction directives (only numbers/ character or both)
+* Prevent leading empty space
+* Real-time form validation
+* Added Favicon 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Angular Concepts Used
 
-## Build
+* Standalone Components 
+* Reactive Forms
+* Custom Validators
+* Async Validators
+* Custom Directives
+* Dependency Injection
+* RxJS (BehaviorSubject, Observable)
+* Local Storage Integration
+* Angular Material Icons
+* Form State Management (dirty, touched, pristine)
+* Angular routing 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Custom Validators
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Age Validator
+* Future Date Validator
+* Password Match Validator
+* Email Exists Async Validator
+* No Leading Space Validator
 
-## Running end-to-end tests
+## Custom Directives
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+* Input Restriction Directive
+* Paste Handling
+* Character Filtering
 
-## Further help
+## Project Structure
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* components
+* services
+* custom-validators
+* custom-directives
+* public/assets
+
+## How to Run
+
+1. Set Node.js version to 18.20  using `nvm use` command, If the version specified in .nvmrc is not installed, run `nvm install`
+2. Install dependencies using `npm install`
+2. Run the application using `ng serve`
+3. Open `http://localhost:4200`
+
+## Enhancements
+
+* Backend API Integration
+* Employee Listing Page
+* Edit/Delete Employee
+* Route Guards 
